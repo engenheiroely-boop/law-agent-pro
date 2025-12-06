@@ -21,8 +21,9 @@ export const LoginModule: React.FC = () => {
         try {
             await login(email, password);
             showToast('success', 'Login realizado com sucesso!');
-        } catch (err) {
-            const msg = 'Email ou senha incorretos.';
+        } catch (err: any) {
+            console.error(err);
+            const msg = err.message || 'Erro desconhecido ao tentar login.';
             setError(msg);
             showToast('error', msg);
             setLoading(false);
