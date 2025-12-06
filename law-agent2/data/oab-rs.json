@@ -1,0 +1,43 @@
+
+[
+  {
+    "id": "rs-cons-001",
+    "tableCode": "1",
+    "state": "RS",
+    "category": "Consultivo",
+    "subCategory": "Consultas",
+    "description": "Consulta simples em horário comercial",
+    "rule": { "type": "FIXED", "minFee": 450.00, "description": "Valor orientativo." },
+    "requiredInputs": []
+  },
+  {
+    "id": "rs-cons-002",
+    "tableCode": "1.2",
+    "state": "RS",
+    "category": "Consultivo",
+    "subCategory": "Consultas",
+    "description": "Parecer escrito",
+    "rule": { "type": "FIXED", "minFee": 1800.00, "description": "Complexidade média." },
+    "requiredInputs": []
+  },
+  {
+    "id": "rs-civ-001",
+    "tableCode": "2.1",
+    "state": "RS",
+    "category": "Contencioso",
+    "subCategory": "Cível",
+    "description": "Ação de Conhecimento (Rito Comum)",
+    "rule": { "type": "HYBRID_MAX", "minFee": 4500.00, "percentage": 20, "percentageBasis": "BENEFIT_VALUE", "description": "20% sobre o benefício ou piso da tabela." },
+    "requiredInputs": [{ "fieldKey": "benefitValue", "label": "Valor da Causa/Benefício", "required": true }]
+  },
+  {
+    "id": "rs-fam-001",
+    "tableCode": "3.1",
+    "state": "RS",
+    "category": "Contencioso",
+    "subCategory": "Família",
+    "description": "Divórcio Consensual",
+    "rule": { "type": "FIXED", "minFee": 3500.00, "description": "Sem bens a partilhar." },
+    "requiredInputs": []
+  }
+]

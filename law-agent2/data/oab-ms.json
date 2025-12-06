@@ -1,0 +1,53 @@
+
+[
+  {
+    "id": "ms-cons-001",
+    "tableCode": "1.1",
+    "state": "MS",
+    "category": "Consultivo",
+    "subCategory": "Consultas",
+    "description": "Consulta verbal em horário de expediente",
+    "rule": { "type": "FIXED", "minFee": 450.00, "description": "Valor mínimo sugerido (Aguardando Tabela Oficial)." },
+    "requiredInputs": []
+  },
+  {
+    "id": "ms-cons-002",
+    "tableCode": "1.2",
+    "state": "MS",
+    "category": "Consultivo",
+    "subCategory": "Consultas",
+    "description": "Parecer escrito",
+    "rule": { "type": "FIXED", "minFee": 1500.00, "description": "Valor mínimo sugerido (Aguardando Tabela Oficial)." },
+    "requiredInputs": []
+  },
+  {
+    "id": "ms-civ-001",
+    "tableCode": "2.1",
+    "state": "MS",
+    "category": "Contencioso",
+    "subCategory": "Cível",
+    "description": "Ação de Conhecimento (Rito Comum)",
+    "rule": { "type": "HYBRID_MAX", "minFee": 4000.00, "percentage": 20, "percentageBasis": "BENEFIT_VALUE", "description": "20% ou o piso (Exemplo)." },
+    "requiredInputs": [{ "fieldKey": "benefitValue", "label": "Valor da Causa", "required": true }]
+  },
+  {
+    "id": "ms-trab-001",
+    "tableCode": "5.1",
+    "state": "MS",
+    "category": "Contencioso",
+    "subCategory": "Trabalhista",
+    "description": "Reclamação Trabalhista",
+    "rule": { "type": "PERCENTAGE", "minFee": 2500.00, "percentage": 30, "percentageBasis": "BENEFIT_VALUE", "description": "30% sobre o êxito." },
+    "requiredInputs": [{ "fieldKey": "benefitValue", "label": "Valor Estimado", "required": true }]
+  },
+  {
+    "id": "ms-extra-001",
+    "tableCode": "8.1",
+    "state": "MS",
+    "category": "Extrajudicial",
+    "subCategory": "Imobiliário",
+    "description": "Análise de Contrato de Compra e Venda",
+    "rule": { "type": "FIXED", "minFee": 2000.00, "description": "Valor fixo." },
+    "requiredInputs": []
+  }
+]

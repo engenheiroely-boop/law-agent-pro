@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Law Agent - Inteligência Jurídica para Advogados</title>
+
+  <!-- SEO Meta Tags -->
+  <meta name="description"
+    content="Law Agent - Sistema inteligente para escritórios de advocacia. Cálculo de honorários OAB, gestão de clientes, processos, documentos e finanças com IA integrada." />
+  <meta name="keywords"
+    content="honorários advocatícios, tabela OAB, gestão jurídica, escritório advocacia, cálculo honorários, Law Agent" />
+  <meta name="author" content="Lince Tecnologia" />
+  <meta name="robots" content="index, follow" />
+
+  <!-- Open Graph / Social -->
+  <meta property="og:title" content="Law Agent - Inteligência Jurídica" />
+  <meta property="og:description"
+    content="Sistema completo de gestão para escritórios de advocacia com cálculo de honorários OAB e IA integrada." />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="pt_BR" />
+
+  <!-- Theme Color -->
+  <meta name="theme-color" content="#0f172a" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#0f172a', // Slate 900
+            secondary: '#334155', // Slate 700
+            accent: '#0ea5e9', // Sky 500 (default)
+            background: '#f8fafc', // Slate 50
+            gold: {
+              50: '#fffbeb',
+              100: '#fef3c7',
+              200: '#fde68a',
+              300: '#fcd34d',
+              400: '#fbbf24',
+              500: '#f59e0b',
+              600: '#d97706',
+              700: '#b45309',
+              800: '#92400e',
+              900: '#78350f',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+
+    /* Theme CSS Variables */
+    :root[data-theme="sky"] {
+      --color-accent: 14 165 233;
+      /* Sky 500 RGB */
+      --color-accent-hover: 2 132 199;
+      /* Sky 600 RGB */
+      --color-accent-light: 224 242 254;
+      /* Sky 50 RGB */
+    }
+
+    :root[data-theme="gold"] {
+      --color-accent: 217 119 6;
+      /* Amber 600 RGB */
+      --color-accent-hover: 180 83 9;
+      /* Amber 700 RGB */
+      --color-accent-light: 69 26 3;
+      /* Amber 950 RGB (Very Dark for Backgrounds) */
+    }
+
+    /* Dynamic accent classes - MUST override Tailwind */
+    .bg-accent {
+      background-color: rgb(var(--color-accent)) !important;
+    }
+
+    .text-accent {
+      color: rgb(var(--color-accent)) !important;
+    }
+
+    .border-accent {
+      border-color: rgb(var(--color-accent)) !important;
+    }
+
+    .hover\:bg-accent:hover {
+      background-color: rgb(var(--color-accent)) !important;
+    }
+
+    .hover\:text-accent:hover {
+      color: rgb(var(--color-accent)) !important;
+    }
+
+    .hover\:border-accent:hover {
+      border-color: rgb(var(--color-accent)) !important;
+    }
+
+    /* Map specific Tailwind classes to dynamic variables */
+    .bg-sky-50 {
+      background-color: rgb(var(--color-accent-light)) !important;
+    }
+
+    .hover\:bg-sky-50:hover {
+      background-color: rgb(var(--color-accent-light)) !important;
+    }
+
+    /* Accent with opacity */
+    .bg-accent\/10 {
+      background-color: rgb(var(--color-accent) / 0.1) !important;
+    }
+
+    .bg-accent\/20 {
+      background-color: rgb(var(--color-accent) / 0.2) !important;
+    }
+
+    .border-accent\/20 {
+      border-color: rgb(var(--color-accent) / 0.2) !important;
+    }
+
+    .hover\:border-accent\/20:hover {
+      border-color: rgb(var(--color-accent) / 0.2) !important;
+    }
+
+    /* Hover variants */
+    .hover\:bg-sky-600:hover {
+      background-color: rgb(var(--color-accent-hover)) !important;
+    }
+
+    /* Gold theme specific overrides (DARK MODE) */
+    :root[data-theme="gold"] {
+      --color-primary: 250 250 250;
+      /* Zinc 50 (Text) */
+      --color-background: 9 9 11;
+      /* Zinc 950 (Page BG) */
+      --color-surface: 24 24 27;
+      /* Zinc 900 (Card BG) */
+      --color-surface-highlight: 39 39 42;
+      /* Zinc 800 (Hover/Input BG) */
+      --color-border: 63 63 70;
+      /* Zinc 700 (Borders) */
+      --color-text-secondary: 161 161 170;
+      /* Zinc 400 */
+
+      /* Brighter Gold for Dark Mode Contrast */
+      --color-accent: 251 191 36;
+      /* Amber 400 - Bright for visibility */
+      --color-accent-hover: 245 158 11;
+      /* Amber 500 */
+      --color-accent-light: 69 26 3;
+      /* Amber 950 (Very Dark Gold Background) */
+    }
+
+    [data-theme="gold"] body {
+      background-color: rgb(var(--color-background)) !important;
+      color: rgb(var(--color-primary)) !important;
+    }
+
+    /* Global Dark Mode Overrides for Gold Theme */
+    [data-theme="gold"] .bg-white {
+      background-color: rgb(var(--color-surface)) !important;
+    }
+
+    [data-theme="gold"] .bg-slate-50 {
+      background-color: rgb(var(--color-surface-highlight)) !important;
+    }
+
+    [data-theme="gold"] .bg-slate-100 {
+      background-color: rgb(var(--color-surface-highlight)) !important;
+    }
+
+    [data-theme="gold"] .bg-slate-200 {
+      background-color: rgb(var(--color-border)) !important;
+    }
+
+    /* Fix: Make slate-900 (Summary Panel) dark with gold border instead of full yellow */
+    [data-theme="gold"] .bg-slate-900 {
+      background-color: rgb(var(--color-surface)) !important;
+      color: rgb(var(--color-primary)) !important;
+      border: 1px solid rgb(var(--color-accent) / 0.3) !important;
+    }
+
+    /* Ensure primary buttons still pop if they use slate-900, or add specific class for them if needed.
+       For now, let's keep buttons dark too for elegance, or we can target button.bg-slate-900 specifically if we want them gold.
+       Let's try dark buttons with gold text/border for a very premium look. */
+
+    [data-theme="gold"] .text-slate-900 {
+      color: rgb(var(--color-primary)) !important;
+    }
+
+    [data-theme="gold"] .text-slate-800 {
+      color: rgb(var(--color-primary)) !important;
+    }
+
+    [data-theme="gold"] .text-slate-700 {
+      color: rgb(var(--color-text-secondary)) !important;
+    }
+
+    [data-theme="gold"] .text-slate-600 {
+      color: rgb(var(--color-text-secondary)) !important;
+    }
+
+    [data-theme="gold"] .text-slate-500 {
+      color: rgb(var(--color-text-secondary)) !important;
+    }
+
+    [data-theme="gold"] .text-slate-400 {
+      color: rgb(var(--color-text-secondary)) !important;
+    }
+
+    [data-theme="gold"] .border-slate-100 {
+      border-color: rgb(var(--color-border)) !important;
+    }
+
+    [data-theme="gold"] .border-slate-200 {
+      border-color: rgb(var(--color-border)) !important;
+    }
+
+    [data-theme="gold"] .border-slate-300 {
+      border-color: rgb(var(--color-border)) !important;
+    }
+
+    /* Specific Component Fixes */
+    [data-theme="gold"] input,
+    [data-theme="gold"] select,
+    [data-theme="gold"] textarea {
+      background-color: rgb(var(--color-surface-highlight)) !important;
+      border-color: rgb(var(--color-border)) !important;
+      color: rgb(var(--color-primary)) !important;
+    }
+
+    [data-theme="gold"] .shadow-lg,
+    [data-theme="gold"] .shadow-xl,
+    [data-theme="gold"] .shadow-md,
+    [data-theme="gold"] .shadow-sm {
+      box-shadow: none !important;
+      /* Remove shadows in dark mode for cleaner look */
+      border: 1px solid rgb(var(--color-border)) !important;
+    }
+
+    /* Contract Print Safe - Override ALL theme styles for contracts */
+    .contract-print-safe,
+    .contract-print-safe *,
+    [data-theme="gold"] .contract-print-safe,
+    [data-theme="gold"] .contract-print-safe * {
+      background-color: white !important;
+      color: black !important;
+    }
+
+    /* Exception: Keep specific grays for subtle backgrounds in contracts */
+    .contract-print-safe .bg-gray-50,
+    [data-theme="gold"] .contract-print-safe .bg-gray-50 {
+      background-color: #f9fafb !important;
+    }
+
+    .contract-print-safe .text-gray-600,
+    [data-theme="gold"] .contract-print-safe .text-gray-600 {
+      color: #4b5563 !important;
+    }
+
+    .contract-print-safe .text-gray-500,
+    [data-theme="gold"] .contract-print-safe .text-gray-500 {
+      color: #6b7280 !important;
+    }
+
+    .contract-print-safe .text-gray-400,
+    [data-theme="gold"] .contract-print-safe .text-gray-400 {
+      color: #9ca3af !important;
+    }
+
+    .contract-print-safe .border-gray-200,
+    [data-theme="gold"] .contract-print-safe .border-gray-200 {
+      border-color: #e5e7eb !important;
+    }
+
+    .contract-print-safe .text-slate-800,
+    [data-theme="gold"] .contract-print-safe .text-slate-800 {
+      color: #1e293b !important;
+    }
+
+    .contract-print-safe .border-slate-200,
+    [data-theme="gold"] .contract-print-safe .border-slate-200 {
+      border-color: #e2e8f0 !important;
+    }
+
+    .contract-print-safe .bg-slate-100,
+    [data-theme="gold"] .contract-print-safe .bg-slate-100 {
+      background-color: #f1f5f9 !important;
+    }
+
+    /* ============================================
+       CUSTOM ANIMATIONS & MICRO-INTERACTIONS
+       ============================================ */
+
+    /* Shimmer effect for skeleton loading */
+    @keyframes shimmer {
+      0% {
+        background-position: -200% 0;
+      }
+
+      100% {
+        background-position: 200% 0;
+      }
+    }
+
+    .animate-shimmer {
+      animation: shimmer 1.5s infinite linear;
+    }
+
+    /* Bounce in animation */
+    @keyframes bounceIn {
+      0% {
+        transform: scale(0.9);
+        opacity: 0;
+      }
+
+      50% {
+        transform: scale(1.02);
+      }
+
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    .animate-bounce-in {
+      animation: bounceIn 0.4s ease-out forwards;
+    }
+
+    /* Slide up animation */
+    @keyframes slideUp {
+      from {
+        transform: translateY(20px);
+        opacity: 0;
+      }
+
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .animate-slide-up {
+      animation: slideUp 0.3s ease-out forwards;
+    }
+
+    /* Scale in animation */
+    @keyframes scaleIn {
+      from {
+        transform: scale(0.95);
+        opacity: 0;
+      }
+
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    .animate-scale-in {
+      animation: scaleIn 0.2s ease-out forwards;
+    }
+
+    /* Float animation for icons */
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-3px);
+      }
+    }
+
+    .animate-float {
+      animation: float 2s ease-in-out infinite;
+    }
+
+    /* Pulse glow for accents */
+    @keyframes pulseGlow {
+
+      0%,
+      100% {
+        box-shadow: 0 0 0 0 rgb(var(--color-accent) / 0.4);
+      }
+
+      50% {
+        box-shadow: 0 0 10px 5px rgb(var(--color-accent) / 0.2);
+      }
+    }
+
+    .animate-pulse-glow {
+      animation: pulseGlow 2s ease-in-out infinite;
+    }
+
+    /* ============================================
+       CUSTOM SCROLLBAR
+       ============================================ */
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: rgba(100, 116, 139, 0.3);
+      border-radius: 3px;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: rgba(100, 116, 139, 0.5);
+    }
+
+    /* Global scrollbar styling */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+
+    /* ============================================
+       HOVER MICRO-INTERACTIONS
+       ============================================ */
+    .hover-lift {
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .hover-lift:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .hover-scale {
+      transition: transform 0.2s ease;
+    }
+
+    .hover-scale:hover {
+      transform: scale(1.02);
+    }
+  </style>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script type="importmap">
+{
+  "imports": {
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.30.0",
+    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.555.0"
+  }
+}
+</script>
+  <link rel="stylesheet" href="/index.css">
+</head>
+
+<body class="bg-background text-slate-800 antialiased">
+  <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+
+</html>
